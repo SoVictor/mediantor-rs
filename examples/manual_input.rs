@@ -1,8 +1,8 @@
 use std::io;
 
 fn main() {
-	use mediantor_rs::mediantor::Mediantor;
-	use mediantor_rs::mediantor::MediantorHeap;
+	use mediantor_rs::Mediantor;
+	use mediantor_rs::MediantorHeap;
 	
 	let mut mediantor = MediantorHeap::new();
 	

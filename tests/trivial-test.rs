@@ -2,8 +2,8 @@
 mod tests {	
     #[test]
     fn trivial() {
-		use mediantor_rs::mediantor::Mediantor;
-		use mediantor_rs::mediantor::MediantorSortedVec;
+		use mediantor_rs::Mediantor;
+		use mediantor_rs::MediantorSortedVec;
 	
 		let mut mediantor = MediantorSortedVec::new();
 		mediantor.insert(1);
