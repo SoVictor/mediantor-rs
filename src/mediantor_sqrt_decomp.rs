@@ -1,0 +1,86 @@
+use crate::mediantor::Mediantor;
+use std::cmp;
+use std::collections::VecDeque;
+
+pub struct MediantorSqrtDecomp {
+	buckets: Vec<VecDeque<i32>>,
+	size: usize,
+	bucket_size: usize
+}
+
+impl MediantorSqrtDecomp {
+	fn usize_sqrt(x: usize) -> usize {
+		(x as f64).sqrt() as usize
+	}
+
+	pub fn new(max_size: usize) -> Self {
+		Self{buckets: Vec::new(), size: 0, bucket_size: cmp::max(1, Self::usize_sqrt(max_size))}
+	}
+}
+
+impl Mediantor for MediantorSqrtDecomp {
+	fn insert(&mut self, x: i32) {
+		if self.size == 0 {
+			self.buckets.push(VecDeque::new());
+			self.buckets[0].push_back(x);
+			self.size += 1;
+			return;
+		}
+
+		let mut bucket_idx: usize = self.buckets.len() - 1;
+		while bucket_idx > 0 && self.buckets[bucket_idx].front().unwrap() > &x {
+			bucket_idx -= 1;
+		}
+		let bucket = &mut self.buckets[bucket_idx];
+
+		bucket.push_front(x);
+		for i in 1..bucket.len() {
+			if bucket[i] < bucket[i - 1] {
+				bucket.swap(i, i - 1);
+			}
+		}
+
+		for i in bucket_idx..self.buckets.len() - 1 {
+			let t = *self.buckets[i].back().unwrap();
+			self.buckets[i].pop_back();
+			self.buckets[i + 1].push_front(t);
+		}
+		if self.buckets.last().unwrap().len() > self.bucket_size {
+			let t = *self.buckets.last_mut().unwrap().back().unwrap();
+			self.buckets.last_mut().unwrap().pop_back();
+			self.buckets.push(VecDeque::new());
+			self.buckets.last_mut().unwrap().push_back(t);
+		}
+
+		self.size += 1;
+	}
+
+	fn take(&mut self) -> i32 {
+		let idx = (self.size - 1) / 2;
+		let bucket_idx = idx / self.bucket_size;
+		let idx_in_bucket = idx % self.bucket_size;
+		let bucket = &mut self.buckets[bucket_idx];
+
+		let ans = bucket[idx_in_bucket];
+		for i in idx_in_bucket..bucket.len() - 1 {
+			bucket.swap(i, i + 1);
+		}
+		bucket.pop_back();
+
+		for i in bucket_idx..self.buckets.len() - 1 {
+			let t = *self.buckets[i + 1].front().unwrap();
+			self.buckets[i + 1].pop_front();
+			self.buckets[i].push_back(t);
+		}
+		if self.buckets.last().unwrap().len() == 0 {
+			self.buckets.pop();
+		}
+
+		self.size -= 1;
+		return ans;
+	}
+  
+	fn size(&self) -> usize {
+		return self.size;
+	}
+}

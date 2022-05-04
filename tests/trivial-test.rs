@@ -1,9 +1,9 @@
 #[test]
 fn trivial() {
 	use mediantor_rs::Mediantor;
-	use mediantor_rs::MediantorSortedVec;
+	use mediantor_rs::MediantorSqrtDecomp;
 
-	let mut mediantor = MediantorSortedVec::new();
+	let mut mediantor = MediantorSqrtDecomp::new(4);
 	mediantor.insert(1);
 	mediantor.insert(2);
 	mediantor.insert(3);
