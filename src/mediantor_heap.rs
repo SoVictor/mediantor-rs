@@ -23,6 +23,7 @@ impl MediantorHeap {
 }
 
 impl Mediantor for MediantorHeap {
+	// O(log N).
 	fn insert(&mut self, x: i32) {
 		if self.lower_half.len() == 0 {
 			self.lower_half.push(x);
@@ -39,6 +40,7 @@ impl Mediantor for MediantorHeap {
 		self.maybe_balance();
 	}
 
+	// O(log N).
 	fn take(&mut self) -> i32 {
 		let ans = self.lower_half.pop().unwrap();
 		
@@ -46,7 +48,8 @@ impl Mediantor for MediantorHeap {
 		
 		return ans;
 	}
-  
+	
+	// O(1).
 	fn size(&self) -> usize {
 		return self.lower_half.len() + self.upper_half.len();
 	}

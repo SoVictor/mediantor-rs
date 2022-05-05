@@ -19,6 +19,7 @@ impl MediantorSqrtDecomp {
 }
 
 impl Mediantor for MediantorSqrtDecomp {
+	// O(sqrt(N)).
 	fn insert(&mut self, x: i32) {
 		if self.size == 0 {
 			self.buckets.push(VecDeque::new());
@@ -55,6 +56,7 @@ impl Mediantor for MediantorSqrtDecomp {
 		self.size += 1;
 	}
 
+	// O(sqrt(N)).
 	fn take(&mut self) -> i32 {
 		let idx = (self.size - 1) / 2;
 		let bucket_idx = idx / self.bucket_size;
@@ -80,6 +82,7 @@ impl Mediantor for MediantorSqrtDecomp {
 		return ans;
 	}
   
+	// O(1).
 	fn size(&self) -> usize {
 		return self.size;
 	}
