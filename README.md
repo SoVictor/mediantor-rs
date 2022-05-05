@@ -43,15 +43,15 @@ The following _n_ lines should contain descriptions of these operations. If the 
 
 `1 x`,
 
-it means that `Insert(x)` will be performed (-10<sup>9</sup> ≤ _x_ ≤ 10<sup>9</sup>). If the line contains one single zero, it means that `Take()` performed.
+it means that `insert(x)` will be performed (-10<sup>9</sup> ≤ _x_ ≤ 10<sup>9</sup>). If the line contains one single zero, it means that `take()` performed.
 
-It is granted that `Take()` will not be called when Mediantor is empty.
+It is granted that `take()` will not be called when Mediantor is empty.
 
 Manual tests should follow the same rules.
 
 ## Structure of a test output
 
-For each called `Take()`, output will contain a line with a returned number.
+For each called `take()`, output will contain a line with a returned number.
 
 ## Example
 
