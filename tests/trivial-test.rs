@@ -1,9 +1,13 @@
-#[test]
-fn trivial() {
-	use mediantor_rs::Mediantor;
-	use mediantor_rs::MediantorSqrtDecomp;
+use mediantor_rs::*;
+use parameterized::parameterized;
 
-	let mut mediantor = MediantorSqrtDecomp::new(4);
+#[parameterized(implementation = {
+    MediantorImplementation::MediantorHeap,
+	MediantorImplementation::MediantorSqrtDecomp,
+	MediantorImplementation::MediantorSortedVec,
+})]
+fn trivial(implementation: MediantorImplementation) {
+	let mut mediantor = create_mediantor(implementation, 4);
 	mediantor.insert(1);
 	mediantor.insert(2);
 	mediantor.insert(3);
