@@ -10,6 +10,7 @@ pub use crate::mediantor_sorted_vec::MediantorSortedVec;
 mod mediantor_sqrt_decomp;
 pub use crate::mediantor_sqrt_decomp::MediantorSqrtDecomp;
 
+#[derive(Copy, Clone)]
 pub enum MediantorImplementation {
 	MediantorHeap,
 	MediantorSqrtDecomp,
