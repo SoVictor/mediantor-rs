@@ -9,7 +9,7 @@ Mediantor is a container that stores a collection of integers and provides only 
 
 This project provides three implementations of Mediantor:
 
-1. As a sorted vactor, with complexity _O(N)_ for each operation;
+1. As a sorted vector, with complexity _O(N)_ for each operation;
 2. As sqrt decomposition, with complexity _O(sqrt(N))_ for each operation;
 3. As two heaps, with complexity _O(log(N))_ for each operation.
 
