@@ -21,7 +21,7 @@ impl Mediantor for MediantorSortedVec {
 
     // O(N).
     fn take(&mut self) -> i32 {
-        let idx: usize = (self.elements.len() - 1) / 2;
+        let idx = (self.elements.len() - 1) / 2;
         return self.elements.remove(idx);
     }
 

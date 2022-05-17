@@ -36,12 +36,8 @@ impl Mediantor for MediantorSqrtDecomp {
         }
         let bucket = &mut self.buckets[bucket_idx];
 
-        bucket.push_front(x);
-        for i in 1..bucket.len() {
-            if bucket[i] < bucket[i - 1] {
-                bucket.swap(i, i - 1);
-            }
-        }
+        let idx = bucket.binary_search(&x).unwrap_or_else(|x| x);
+        bucket.insert(idx, x);
 
         for i in bucket_idx..self.buckets.len() - 1 {
             let t = *self.buckets[i].back().unwrap();
@@ -64,11 +60,7 @@ impl Mediantor for MediantorSqrtDecomp {
         let idx_in_bucket = idx % self.bucket_size;
         let bucket = &mut self.buckets[bucket_idx];
 
-        let ans = bucket[idx_in_bucket];
-        for i in idx_in_bucket..bucket.len() - 1 {
-            bucket.swap(i, i + 1);
-        }
-        bucket.pop_back();
+        let ans = bucket.remove(idx_in_bucket).unwrap();
 
         for i in bucket_idx..self.buckets.len() - 1 {
             let t = *self.buckets[i + 1].front().unwrap();
