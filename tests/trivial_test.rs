@@ -2,9 +2,9 @@ use mediantor_rs::*;
 use parameterized::parameterized;
 
 #[parameterized(implementation = {
-    MediantorImplementation::MediantorHeap,
-	MediantorImplementation::MediantorSqrtDecomp,
-	MediantorImplementation::MediantorSortedVec,
+    MediantorImplementation::Heap,
+	MediantorImplementation::SqrtDecomp,
+	MediantorImplementation::SortedVec,
 })]
 fn trivial(implementation: MediantorImplementation) {
 	let mut mediantor = create_mediantor(implementation, 4);

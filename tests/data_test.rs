@@ -5,9 +5,9 @@ use std::fs::File;
 use std::io::{BufRead, BufReader};
 
 #[parameterized(implementation = {
-    MediantorImplementation::MediantorHeap,
-	MediantorImplementation::MediantorSqrtDecomp,
-	MediantorImplementation::MediantorSortedVec,
+    MediantorImplementation::Heap,
+	MediantorImplementation::SqrtDecomp,
+	MediantorImplementation::SortedVec,
 })]
 fn on_data(implementation: MediantorImplementation) {
 	for entry in fs::read_dir("tests/data").unwrap() {
