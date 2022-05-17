@@ -3,8 +3,7 @@ use std::io;
 fn main() {
 	use mediantor_rs::*;
 	
-	let mut implementation: Option<MediantorImplementation> = None;
-	while implementation.is_none() {
+	let implementation = loop {
 		println!("Please choose which Mediantor implementation to use by writing a single number: ");
 		println!("0 - Mediantor as two heaps");
 		println!("1 - Mediantor as SQRT-decomposition");
@@ -14,14 +13,13 @@ fn main() {
 		io::stdin().read_line(&mut input).expect("Failed to read line");
 		let implementation_idx: usize = input.trim().parse::<usize>().expect("Failed to parse number");
 
-		implementation = match implementation_idx {
-			0 => Some(MediantorImplementation::Heap),
-			1 => Some(MediantorImplementation::SqrtDecomp),
-			2 => Some(MediantorImplementation::SortedVec),
-			_ => None,
+		match implementation_idx {
+			0 => break MediantorImplementation::Heap,
+			1 => break MediantorImplementation::SqrtDecomp,
+			2 => break MediantorImplementation::SortedVec,
+			_ => continue,
 		}
-	}
-	let implementation: MediantorImplementation = implementation.unwrap();
+	};
 
 	println!();
 	println!("Please provide an input in a format described in README:");

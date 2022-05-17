@@ -27,7 +27,7 @@ fn on_data(implementation: MediantorImplementation) {
 
 		let mut input = String::new();
 		input_file.read_line(&mut input).expect("Failed to read line");
-		let n: usize = input.trim().parse::<usize>().expect("Failed to parse n");
+		let n = input.trim().parse().expect("Failed to parse n");
 
 		let mut mediantor = create_mediantor(implementation, n);
 
