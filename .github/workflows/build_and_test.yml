@@ -16,3 +16,7 @@ jobs:
       run: cargo build
     - name: run tests
       run: cargo test
+    - name: check formatting
+      run: cargo fmt --check
+    - name: check codestyle
+      run: cargo clippy
