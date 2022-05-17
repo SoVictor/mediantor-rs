@@ -35,7 +35,7 @@ fn main() {
     io::stdin()
         .read_line(&mut input)
         .expect("Failed to read line");
-    let n: usize = input.trim().parse::<usize>().expect("Failed to parse n");
+    let n = input.trim().parse().expect("Failed to parse n");
 
     let implementation = match implementation {
         MediantorImplementation::SqrtDecomp { .. } => {
@@ -56,14 +56,10 @@ fn main() {
         let operation: i32 = it
             .next()
             .unwrap()
-            .parse::<i32>()
+            .parse()
             .expect("Failed to parse operation");
         if operation == 1 {
-            let x: i32 = it
-                .next()
-                .unwrap()
-                .parse::<i32>()
-                .expect("Failed to parse x");
+            let x: i32 = it.next().unwrap().parse().expect("Failed to parse x");
             mediantor.insert(x);
         } else {
             answer.push(mediantor.take());

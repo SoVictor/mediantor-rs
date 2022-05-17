@@ -49,21 +49,17 @@ fn on_data(implementation: MediantorImplementation) {
             let operation: i32 = it
                 .next()
                 .unwrap()
-                .parse::<i32>()
+                .parse()
                 .expect("Failed to parse operation");
             if operation == 1 {
-                let x: i32 = it
-                    .next()
-                    .unwrap()
-                    .parse::<i32>()
-                    .expect("Failed to parse x");
+                let x: i32 = it.next().unwrap().parse().expect("Failed to parse x");
                 mediantor.insert(x);
             } else {
                 let mut output = String::new();
                 output_file
                     .read_line(&mut output)
                     .expect("Failed to read line");
-                let x: i32 = output.trim().parse::<i32>().expect("Failed to parse x");
+                let x: i32 = output.trim().parse().expect("Failed to parse x");
                 assert_eq!(mediantor.take(), x);
             }
         }
