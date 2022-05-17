@@ -25,10 +25,16 @@ impl MediantorHeap {
     }
 }
 
+impl Default for MediantorHeap {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl Mediantor for MediantorHeap {
     // O(log N).
     fn insert(&mut self, x: i32) {
-        if self.lower_half.len() == 0 {
+        if self.lower_half.is_empty() {
             self.lower_half.push(x);
             return;
         }
@@ -45,14 +51,12 @@ impl Mediantor for MediantorHeap {
     // O(log N).
     fn take(&mut self) -> i32 {
         let ans = self.lower_half.pop().unwrap();
-
         self.maybe_balance();
-
-        return ans;
+        ans
     }
 
     // O(1).
     fn size(&self) -> usize {
-        return self.lower_half.len() + self.upper_half.len();
+        self.lower_half.len() + self.upper_half.len()
     }
 }

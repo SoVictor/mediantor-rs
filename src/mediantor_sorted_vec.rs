@@ -12,6 +12,12 @@ impl MediantorSortedVec {
     }
 }
 
+impl Default for MediantorSortedVec {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl Mediantor for MediantorSortedVec {
     // O(N).
     fn insert(&mut self, x: i32) {
@@ -22,11 +28,11 @@ impl Mediantor for MediantorSortedVec {
     // O(N).
     fn take(&mut self) -> i32 {
         let idx = (self.elements.len() - 1) / 2;
-        return self.elements.remove(idx);
+        self.elements.remove(idx)
     }
 
     // O(1).
     fn size(&self) -> usize {
-        return self.elements.len();
+        self.elements.len()
     }
 }

@@ -67,16 +67,16 @@ impl Mediantor for MediantorSqrtDecomp {
             self.buckets[i + 1].pop_front();
             self.buckets[i].push_back(t);
         }
-        if self.buckets.last().unwrap().len() == 0 {
+        if self.buckets.last().unwrap().is_empty() {
             self.buckets.pop();
         }
 
         self.size -= 1;
-        return ans;
+        ans
     }
 
     // O(1).
     fn size(&self) -> usize {
-        return self.size;
+        self.size
     }
 }
