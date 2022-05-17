@@ -1,5 +1,4 @@
 use crate::mediantor::Mediantor;
-use std::cmp;
 use std::collections::VecDeque;
 
 pub struct MediantorSqrtDecomp {
@@ -14,7 +13,7 @@ impl MediantorSqrtDecomp {
 	}
 
 	pub fn new(max_size: usize) -> Self {
-		Self{buckets: Vec::new(), size: 0, bucket_size: cmp::max(1, Self::usize_sqrt(max_size))}
+		Self{buckets: Vec::new(), size: 0, bucket_size: Self::usize_sqrt(max_size).max(1)}
 	}
 }
 
@@ -22,8 +21,7 @@ impl Mediantor for MediantorSqrtDecomp {
 	// O(sqrt(N)).
 	fn insert(&mut self, x: i32) {
 		if self.size == 0 {
-			self.buckets.push(VecDeque::new());
-			self.buckets[0].push_back(x);
+			self.buckets.push([x].into());
 			self.size += 1;
 			return;
 		}
@@ -49,8 +47,7 @@ impl Mediantor for MediantorSqrtDecomp {
 		if self.buckets.last().unwrap().len() > self.bucket_size {
 			let t = *self.buckets.last_mut().unwrap().back().unwrap();
 			self.buckets.last_mut().unwrap().pop_back();
-			self.buckets.push(VecDeque::new());
-			self.buckets.last_mut().unwrap().push_back(t);
+			self.buckets.push([t].into());
 		}
 
 		self.size += 1;
