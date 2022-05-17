@@ -22,7 +22,7 @@ fn main() {
 
         match implementation_idx {
             0 => break MediantorImplementation::Heap,
-            1 => break MediantorImplementation::SqrtDecomp,
+            1 => break MediantorImplementation::SqrtDecomp { max_size: 1 },
             2 => break MediantorImplementation::SortedVec,
             _ => continue,
         }
@@ -37,7 +37,13 @@ fn main() {
         .expect("Failed to read line");
     let n: usize = input.trim().parse::<usize>().expect("Failed to parse n");
 
-    let mut mediantor = create_mediantor(implementation, n);
+    let implementation = match implementation {
+        MediantorImplementation::SqrtDecomp { .. } => {
+            MediantorImplementation::SqrtDecomp { max_size: n }
+        }
+        other => other,
+    };
+    let mut mediantor = create_mediantor(implementation);
 
     let mut answer: Vec<i32> = Vec::new();
     for _i in 0..n {

@@ -6,7 +6,7 @@ use std::io::{BufRead, BufReader};
 
 #[parameterized(implementation = {
     MediantorImplementation::Heap,
-	MediantorImplementation::SqrtDecomp,
+	MediantorImplementation::SqrtDecomp{max_size: 1},
 	MediantorImplementation::SortedVec,
 })]
 fn on_data(implementation: MediantorImplementation) {
@@ -31,7 +31,13 @@ fn on_data(implementation: MediantorImplementation) {
             .expect("Failed to read line");
         let n = input.trim().parse().expect("Failed to parse n");
 
-        let mut mediantor = create_mediantor(implementation, n);
+        let implementation = match implementation {
+            MediantorImplementation::SqrtDecomp { .. } => {
+                MediantorImplementation::SqrtDecomp { max_size: n }
+            }
+            other => other,
+        };
+        let mut mediantor = create_mediantor(implementation);
 
         for _i in 0..n {
             let mut input = String::new();

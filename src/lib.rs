@@ -13,17 +13,16 @@ pub use crate::mediantor_sqrt_decomp::MediantorSqrtDecomp;
 #[derive(Copy, Clone)]
 pub enum MediantorImplementation {
     Heap,
-    SqrtDecomp,
+    SqrtDecomp { max_size: usize },
     SortedVec,
 }
 
-pub fn create_mediantor(
-    implementation: MediantorImplementation,
-    max_size: usize,
-) -> Box<dyn Mediantor> {
+pub fn create_mediantor(implementation: MediantorImplementation) -> Box<dyn Mediantor> {
     match implementation {
         MediantorImplementation::Heap => Box::new(MediantorHeap::new()),
-        MediantorImplementation::SqrtDecomp => Box::new(MediantorSqrtDecomp::new(max_size)),
+        MediantorImplementation::SqrtDecomp { max_size } => {
+            Box::new(MediantorSqrtDecomp::new(max_size))
+        }
         MediantorImplementation::SortedVec => Box::new(MediantorSortedVec::new()),
     }
 }
