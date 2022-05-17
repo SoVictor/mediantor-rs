@@ -15,23 +15,14 @@ impl MediantorSortedVec {
 impl Mediantor for MediantorSortedVec {
     // O(N).
     fn insert(&mut self, x: i32) {
-        self.elements.push(x);
-        for i in (1..self.elements.len()).rev() {
-            if self.elements[i] < self.elements[i - 1] {
-                self.elements.swap(i, i - 1);
-            }
-        }
+        let idx = self.elements.binary_search(&x).unwrap_or_else(|x| x);
+        self.elements.insert(idx, x);
     }
 
     // O(N).
     fn take(&mut self) -> i32 {
         let idx: usize = (self.elements.len() - 1) / 2;
-        let ans = self.elements[idx];
-        for i in idx..self.elements.len() - 1 {
-            self.elements.swap(i, i + 1);
-        }
-        self.elements.pop();
-        return ans;
+        return self.elements.remove(idx);
     }
 
     // O(1).
